@@ -69,12 +69,14 @@ class mfwActions {
 		return array($headers,$content);
 	}
 
-	protected function redirect($query,$params=array())
+	protected function redirect($query,$params=array(),$raw=false)
 	{
-		$query = mfwHttp::composeUrl($query,$params);
+		if(!$raw){
+			$query = mfwHttp::composeUrl($query,$params);
 
-		if(strpos($query,'://')===false){
-			$query = mfwRequest::makeUrl($query);
+			if(strpos($query,'://')===false){
+				$query = mfwRequest::makeUrl($query);
+			}
 		}
 
 		$headers = array(
